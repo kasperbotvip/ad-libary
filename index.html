@@ -7,34 +7,31 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-slate-900 text-white min-h-screen p-6">
-    <div class="max-w-md mx-auto space-y-6">
-        <h1 class="text-2xl font-bold text-blue-400 text-center">أداة كاسبر للإعلانات</h1>
+<body class="bg-slate-900 text-white min-h-screen p-4 flex items-center justify-center">
+    <div class="w-full max-w-sm bg-slate-800 p-6 rounded-2xl shadow-xl">
+        <h2 class="text-xl font-bold text-blue-400 mb-4 text-center">البحث عن إعلانات فيسبوك</h2>
         
-        <div>
-            <label class="block text-sm text-gray-400 mb-2">الكلمة المفتاحية</label>
-            <input id="keyword" type="text" class="w-full p-3 bg-slate-800 rounded-xl border border-slate-700 outline-none" placeholder="مثال: عقارات...">
-        </div>
+        <input id="keyword" type="text" placeholder="اكتب الكلمة هنا..." class="w-full p-3 mb-4 rounded-lg bg-slate-700 border border-slate-600 outline-none">
+        
+        <select id="country" class="w-full p-3 mb-6 rounded-lg bg-slate-700 border border-slate-600">
+            <option value="IQ">العراق 🇮🇶</option>
+            <option value="EG">مصر 🇪🇬</option>
+            <option value="SA">السعودية 🇸🇦</option>
+        </select>
 
-        <div>
-            <label class="block text-sm text-gray-400 mb-2">الدولة</label>
-            <select id="country" class="w-full p-3 bg-slate-800 rounded-xl border border-slate-700">
-                <option value="IQ">العراق 🇮🇶</option>
-                <option value="EG">مصر 🇪🇬</option>
-                <option value="SA">السعودية 🇸🇦</option>
-                <option value="AE">الإمارات 🇦🇪</option>
-            </select>
-        </div>
-
-        <button onclick="search()" class="w-full bg-blue-600 hover:bg-blue-700 p-4 rounded-xl font-bold transition">بحث في فيسبوك</button>
+        <button onclick="doSearch()" class="w-full bg-blue-600 p-3 rounded-lg font-bold">بحث في فيسبوك</button>
     </div>
 
     <script>
-        function search() {
+        function doSearch() {
             const kw = document.getElementById('keyword').value;
             const co = document.getElementById('country').value;
-            if(!kw) return alert("يرجى كتابة كلمة للبحث");
+            if(!kw) return alert("يرجى إدخال كلمة البحث");
+            
+            // الرابط المباشر الصحيح
             const url = `https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=${co}&q=${encodeURIComponent(kw)}`;
+            
+            // الحل: فتح الرابط مباشرة في متصفح التلغرام المدمج (لا يستخدم iframe)
             window.Telegram.WebApp.openLink(url);
         }
     </script>
