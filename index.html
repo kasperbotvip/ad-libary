@@ -3,14 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaspar Ads</title>
+    <title>Kaspar Loader</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body { background: #0f172a; color: white; display: flex; justify-content: center; align-items: center; height: 100vh; font-family: sans-serif; }
+        .loader { border: 5px solid #1e293b; border-top: 5px solid #3b82f6; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
 </head>
-<body style="background-color: #0f172a; color: white; display: flex; justify-content: center; align-items: center; height: 100vh; font-family: sans-serif;">
-    <div id="status">جاري تحويلك إلى مكتبة الإعلانات...</div>
+<body>
+    <div id="loader" class="loader"></div>
+    <div id="msg" style="margin-top: 20px;">جاري التحميل...</div>
 
     <script>
         const tg = window.Telegram.WebApp;
+        tg.ready();
         tg.expand();
 
         const urlParams = new URLSearchParams(window.location.search);
@@ -19,9 +26,10 @@
 
         if (country && q) {
             const fbUrl = `https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=${country}&q=${encodeURIComponent(q)}&media_type=all`;
-            tg.openLink(fbUrl);
+            // استخدام خاصية التلغرام لفتح الرابط
+            window.location.href = fbUrl; 
         } else {
-            document.getElementById('status').innerText = "خطأ: لم يتم استلام بيانات البحث.";
+            document.getElementById('msg').innerText = "بيانات غير موجودة. الرجاء العودة للبوت.";
         }
     </script>
 </body>
