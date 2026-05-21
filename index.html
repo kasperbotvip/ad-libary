@@ -1,15 +1,28 @@
-<script>
-    const tg = window.Telegram.WebApp;
-    tg.expand();
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaspar Ads</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body style="background-color: #0f172a; color: white; display: flex; justify-content: center; align-items: center; height: 100vh; font-family: sans-serif;">
+    <div id="status">جاري تحويلك إلى مكتبة الإعلانات...</div>
 
-    // قراءة البيانات المرسلة من البوت
-    const urlParams = new URLSearchParams(window.location.search);
-    const country = urlParams.get('country');
-    const q = urlParams.get('q');
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand();
 
-    // إذا كانت هناك بيانات، قم بالبحث تلقائياً
-    if (country && q) {
-        const fbUrl = `https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=${country}&q=${encodeURIComponent(q)}`;
-        tg.openLink(fbUrl);
-    }
-</script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const country = urlParams.get('country');
+        const q = urlParams.get('q');
+
+        if (country && q) {
+            const fbUrl = `https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=${country}&q=${encodeURIComponent(q)}&media_type=all`;
+            tg.openLink(fbUrl);
+        } else {
+            document.getElementById('status').innerText = "خطأ: لم يتم استلام بيانات البحث.";
+        }
+    </script>
+</body>
+</html>
