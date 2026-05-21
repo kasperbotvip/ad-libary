@@ -1,39 +1,15 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaspar Ads Pro</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-slate-900 text-white min-h-screen p-4 flex items-center justify-center">
-    <div class="w-full max-w-sm bg-slate-800 p-6 rounded-2xl shadow-xl">
-        <h2 class="text-xl font-bold text-blue-400 mb-4 text-center">البحث عن إعلانات فيسبوك</h2>
-        
-        <input id="keyword" type="text" placeholder="اكتب الكلمة هنا..." class="w-full p-3 mb-4 rounded-lg bg-slate-700 border border-slate-600 outline-none">
-        
-        <select id="country" class="w-full p-3 mb-6 rounded-lg bg-slate-700 border border-slate-600">
-            <option value="IQ">العراق 🇮🇶</option>
-            <option value="EG">مصر 🇪🇬</option>
-            <option value="SA">السعودية 🇸🇦</option>
-        </select>
+<script>
+    const tg = window.Telegram.WebApp;
+    tg.expand();
 
-        <button onclick="doSearch()" class="w-full bg-blue-600 p-3 rounded-lg font-bold">بحث في فيسبوك</button>
-    </div>
+    // قراءة البيانات المرسلة من البوت
+    const urlParams = new URLSearchParams(window.location.search);
+    const country = urlParams.get('country');
+    const q = urlParams.get('q');
 
-    <script>
-        function doSearch() {
-            const kw = document.getElementById('keyword').value;
-            const co = document.getElementById('country').value;
-            if(!kw) return alert("يرجى إدخال كلمة البحث");
-            
-            // الرابط المباشر الصحيح
-            const url = `https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=${co}&q=${encodeURIComponent(kw)}`;
-            
-            // الحل: فتح الرابط مباشرة في متصفح التلغرام المدمج (لا يستخدم iframe)
-            window.Telegram.WebApp.openLink(url);
-        }
-    </script>
-</body>
-</html>
+    // إذا كانت هناك بيانات، قم بالبحث تلقائياً
+    if (country && q) {
+        const fbUrl = `https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=${country}&q=${encodeURIComponent(q)}`;
+        tg.openLink(fbUrl);
+    }
+</script>
