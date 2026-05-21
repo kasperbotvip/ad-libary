@@ -9,11 +9,11 @@
 </head>
 <body class="bg-slate-900 text-white min-h-screen p-6">
     <div class="max-w-md mx-auto space-y-6">
-        <h1 class="text-2xl font-bold text-blue-400 text-center">أداة البحث عن الإعلانات</h1>
+        <h1 class="text-2xl font-bold text-blue-400 text-center">أداة كاسبر للإعلانات</h1>
         
         <div>
             <label class="block text-sm text-gray-400 mb-2">الكلمة المفتاحية</label>
-            <input id="keyword" type="text" class="w-full p-3 bg-slate-800 rounded-xl border border-slate-700 focus:border-blue-500 outline-none" placeholder="مثال: سيارات، عقارات...">
+            <input id="keyword" type="text" class="w-full p-3 bg-slate-800 rounded-xl border border-slate-700 outline-none" placeholder="مثال: عقارات...">
         </div>
 
         <div>
@@ -30,15 +30,11 @@
     </div>
 
     <script>
-        // دالة البحث
         function search() {
             const kw = document.getElementById('keyword').value;
             const co = document.getElementById('country').value;
             if(!kw) return alert("يرجى كتابة كلمة للبحث");
-            
             const url = `https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=${co}&q=${encodeURIComponent(kw)}`;
-            
-            // فتح فيسبوك داخل تطبيق التلغرام
             window.Telegram.WebApp.openLink(url);
         }
     </script>
